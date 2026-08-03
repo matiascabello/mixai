@@ -39,17 +39,19 @@ const CLASSIFIER_SYSTEM_PROMPT =
 // function is reliable. Runs on a cheap/fast model since it's a narrow classification task.
 export async function getQuickReplies(assistantMessage: string): Promise<string[]> {
   const completion = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
+    model: "gpt-5.6-luna",
     messages: [
       { role: "system", content: CLASSIFIER_SYSTEM_PROMPT },
       { role: "user", content: assistantMessage },
     ],
     tools: [suggestQuickRepliesTool],
     tool_choice: { type: "function", function: { name: SUGGEST_QUICK_REPLIES_TOOL_NAME } },
+    // gpt-5.6 rejects function tools alongside its default reasoning_effort on this endpoint.
+    reasoning_effort: "none",
   });
 
   const call = completion.choices[0].message.tool_calls?.[0];
-  if (!call) return [];
+  if (!call || call.type !== "function") return [];
 
   const args = JSON.parse(call.function.arguments) as { replies: string[] };
   return args.replies;

@@ -20,10 +20,13 @@ export async function POST(request: Request) {
   }
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-4o",
+    model: "gpt-5.6-terra",
     messages: [{ role: "system", content: buildSystemPrompt(body.personaId) }, ...body.messages],
     tools: [proposePlaylistTool],
     tool_choice: "auto",
+    // gpt-5.6 rejects function tools alongside its default reasoning_effort on this endpoint
+    // (400: "Function tools with reasoning_effort are not supported ... /v1/chat/completions").
+    reasoning_effort: "none",
     // Persists each call for inspection in the OpenAI dashboard (platform.openai.com/logs),
     // tagged so a full conversation can be filtered/followed as one thread.
     store: true,
@@ -35,10 +38,10 @@ export async function POST(request: Request) {
 
   const choice = completion.choices[0];
   const proposeCall = choice.message.tool_calls?.find(
-    (call) => call.function.name === PROPOSE_PLAYLIST_TOOL_NAME,
+    (call) => call.type === "function" && call.function.name === PROPOSE_PLAYLIST_TOOL_NAME,
   );
 
-  if (proposeCall) {
+  if (proposeCall && proposeCall.type === "function") {
     const args = JSON.parse(proposeCall.function.arguments) as {
       playlistName: string;
       songs: ProposedSong[];
