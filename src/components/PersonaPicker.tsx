@@ -25,6 +25,21 @@ export function PersonaPicker({ onSelect }: PersonaPickerProps) {
             </button>
           );
         })}
+        <button
+          type="button"
+          className="persona-card persona-card--disabled"
+          disabled
+          aria-disabled="true"
+        >
+          <span className="persona-index" aria-hidden="true">
+            {String(PERSONA_IDS.length + 1).padStart(2, "0")}
+          </span>
+          <span className="persona-card-body">
+            <span className="persona-name">Build your own DJ</span>
+            <span className="persona-tagline">Design a DJ with your own taste and voice</span>
+          </span>
+          <span className="coming-soon-badge">Coming soon</span>
+        </button>
       </div>
     </div>
   );

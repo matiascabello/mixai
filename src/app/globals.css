@@ -218,11 +218,12 @@ input:focus-visible {
 
 @media (min-width: 768px) {
   .persona-cards {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
 .persona-card {
+  position: relative;
   background: var(--bg-raised);
   border: none;
   border-radius: 0;
@@ -247,6 +248,35 @@ input:focus-visible {
 
 .persona-card:hover .persona-index {
   color: var(--accent);
+}
+
+.persona-card--disabled {
+  cursor: not-allowed;
+  color: var(--muted);
+}
+
+.persona-card--disabled:hover {
+  background: var(--bg-raised);
+}
+
+.persona-card--disabled .persona-name {
+  color: var(--muted);
+}
+
+.persona-card--disabled:hover .persona-index {
+  color: var(--border);
+}
+
+.coming-soon-badge {
+  align-self: flex-start;
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: var(--space-1) var(--space-2);
 }
 
 .persona-index {
