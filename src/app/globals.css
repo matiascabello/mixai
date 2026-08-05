@@ -70,6 +70,73 @@ body::before {
   padding: var(--space-6) var(--space-4) var(--space-6);
 }
 
+.landing {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-main {
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-6);
+}
+
+.landing-main .eyebrow {
+  margin-bottom: var(--space-4);
+}
+
+.landing-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 8vw, 6rem);
+  line-height: 0.9;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-5);
+  max-width: 780px;
+  color: var(--fg);
+}
+
+.landing-subtitle {
+  font-size: var(--text-lg);
+  line-height: 1.6;
+  color: var(--muted);
+  max-width: 520px;
+  margin: 0 0 var(--space-6);
+}
+
+.landing-cta-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+.landing-cta-note {
+  font-size: var(--text-sm);
+  color: var(--muted);
+}
+
+.landing-footer {
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+  padding: var(--space-5) 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.landing-footer strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.landing-footer a {
+  color: var(--accent);
+  font-weight: 600;
+}
+
 .top-bar {
   display: flex;
   justify-content: space-between;
@@ -246,13 +313,6 @@ input:focus-visible {
   .step-label {
     display: none;
   }
-}
-
-.login-gate {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-  align-items: flex-start;
 }
 
 .persona-picker {
