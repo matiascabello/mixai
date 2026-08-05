@@ -12,6 +12,11 @@ export type SpotifyTokenResponse = {
   refresh_token?: string;
 };
 
+export type SpotifyProfile = {
+  displayName: string | null;
+  avatarUrl?: string;
+};
+
 export type MatchedTrack = {
   title: string;
   artist: string;
