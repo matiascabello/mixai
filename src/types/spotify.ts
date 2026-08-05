@@ -21,4 +21,5 @@ export type MatchedTrack = {
   spotifyArtist?: string;
   albumArtUrl?: string;
   albumName?: string;
+  durationMs?: number;
 };

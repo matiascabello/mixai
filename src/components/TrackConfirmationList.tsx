@@ -3,6 +3,13 @@
 import { useState } from "react";
 import type { MatchedTrack } from "@/types/spotify";
 
+function formatDuration(ms: number): string {
+  const totalMinutes = Math.round(ms / 60000);
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
+  return hours > 0 ? `${hours}h ${minutes}m` : `${minutes} min`;
+}
+
 type TrackConfirmationListProps = {
   playlistName: string;
   tracks: MatchedTrack[];
@@ -30,9 +37,11 @@ export function TrackConfirmationList({
     });
   }
 
-  const confirmedUris = tracks
-    .filter((track) => track.found && track.spotifyUri && !excluded.has(track.spotifyUri))
-    .map((track) => track.spotifyUri as string);
+  const confirmedTracks = tracks.filter(
+    (track) => track.found && track.spotifyUri && !excluded.has(track.spotifyUri),
+  );
+  const confirmedUris = confirmedTracks.map((track) => track.spotifyUri as string);
+  const totalDurationMs = confirmedTracks.reduce((sum, track) => sum + (track.durationMs ?? 0), 0);
 
   return (
     <div className="track-confirmation">
@@ -83,7 +92,9 @@ export function TrackConfirmationList({
         disabled={isCreating || confirmedUris.length === 0}
         onClick={() => void onCreatePlaylist(playlistName, confirmedUris)}
       >
-        {isCreating ? "Creating playlist…" : `Create Playlist (${confirmedUris.length} songs)`}
+        {isCreating
+          ? "Creating playlist…"
+          : `Create Playlist (${confirmedUris.length} songs · ${formatDuration(totalDurationMs)})`}
       </button>
     </div>
   );

@@ -74,7 +74,13 @@ export function ChatPanel({ personaId, onProposal, disabled, isMatching }: ChatP
     setError(null);
 
     try {
-      const requestBody: ChatRequestBody = { messages: nextMessages, personaId, conversationId };
+      // Strip local-only rendering fields (playlistName/songs) before this goes over the
+      // wire — the API only expects role/content per message.
+      const requestBody: ChatRequestBody = {
+        messages: nextMessages.map(({ role, content }) => ({ role, content })),
+        personaId,
+        conversationId,
+      };
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -91,7 +97,10 @@ export function ChatPanel({ personaId, onProposal, disabled, isMatching }: ChatP
         const summary = `Here's my proposal, "${data.playlistName}": ${data.songs
           .map((song) => `${song.title} — ${song.artist}`)
           .join(", ")}. Check the list below to confirm the Spotify matches.`;
-        setMessages([...nextMessages, { role: "assistant", content: summary }]);
+        setMessages([
+          ...nextMessages,
+          { role: "assistant", content: summary, playlistName: data.playlistName, songs: data.songs },
+        ]);
         onProposal(data.playlistName, data.songs);
       } else {
         setMessages([...nextMessages, { role: "assistant", content: data.content }]);
@@ -114,7 +123,25 @@ export function ChatPanel({ personaId, onProposal, disabled, isMatching }: ChatP
                 {PERSONAS[personaId].displayName.charAt(0)}
               </span>
             )}
-            <div className={`chat-message chat-message--${message.role}`}>{message.content}</div>
+            <div className={`chat-message chat-message--${message.role}`}>
+              {message.songs && message.songs.length > 0 ? (
+                <>
+                  <p className="chat-proposal-intro">
+                    Here&rsquo;s my proposal, &ldquo;{message.playlistName}&rdquo;:
+                  </p>
+                  <ol className="chat-proposal-list">
+                    {message.songs.map((song, songIndex) => (
+                      <li key={songIndex}>
+                        {song.title} — {song.artist}
+                      </li>
+                    ))}
+                  </ol>
+                  <p className="chat-proposal-outro">Check the list below to confirm the Spotify matches.</p>
+                </>
+              ) : (
+                message.content
+              )}
+            </div>
           </div>
         ))}
         {isSending && (

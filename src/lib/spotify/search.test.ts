@@ -15,6 +15,7 @@ function track(name: string, artistNames: string[]): SpotifyTrackItem {
     name,
     artists: artistNames.map((n) => ({ name: n })),
     album: { name: "Album", images: [{ url: "https://example.com/art.jpg" }] },
+    duration_ms: 200000,
   };
 }
 

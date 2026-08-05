@@ -9,6 +9,7 @@ export type SpotifyTrackItem = {
   name: string;
   artists: Array<{ name: string }>;
   album: { name: string; images: Array<{ url: string }> };
+  duration_ms: number;
 };
 
 type SpotifySearchResponse = {
@@ -93,6 +94,7 @@ async function searchTrack(
     spotifyArtist: match.artists.map((a) => a.name).join(", "),
     albumArtUrl: match.album.images[0]?.url,
     albumName: match.album.name,
+    durationMs: match.duration_ms,
   };
 }
 

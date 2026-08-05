@@ -383,6 +383,28 @@ input:focus-visible {
   font-style: italic;
 }
 
+.chat-proposal-intro,
+.chat-proposal-outro {
+  margin: 0;
+}
+
+.chat-proposal-intro {
+  margin-bottom: var(--space-2);
+}
+
+.chat-proposal-outro {
+  margin-top: var(--space-2);
+  color: var(--muted);
+}
+
+.chat-proposal-list {
+  margin: 0;
+  padding-left: 1.25em;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
 .thinking-dots span {
   display: inline-block;
   animation: thinking-dot-pulse 1.4s infinite ease-in-out both;
