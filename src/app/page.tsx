@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { AccountBadge } from "@/components/AccountBadge";
 import { ChatPanel } from "@/components/ChatPanel";
 import { PersonaPicker } from "@/components/PersonaPicker";
 import { PlaylistEmbed } from "@/components/PlaylistEmbed";
@@ -79,13 +80,27 @@ export default function Home() {
 
   const currentStep = !loggedIn ? 1 : !personaId ? 2 : playlistId ? 5 : proposal ? 4 : 3;
 
+  function handleLoggedOut() {
+    setLoggedIn(false);
+    setPersonaId(null);
+    setProposal(null);
+    setPlaylistId(null);
+    setActivePanel("chat");
+    setError(null);
+  }
+
   return (
     <main className="page">
-      <p className="eyebrow">Tonight&rsquo;s lineup</p>
-      <h1>
-        Mix<span className="accent-text">AI</span>
-      </h1>
-      <p className="tagline">Describe the vibe. It builds the set.</p>
+      <div className="top-bar">
+        <div>
+          <p className="eyebrow">Tonight&rsquo;s lineup</p>
+          <h1>
+            Mix<span className="accent-text">AI</span>
+          </h1>
+          <p className="tagline">Describe the vibe. It builds the set.</p>
+        </div>
+        {loggedIn === true && <AccountBadge onLoggedOut={handleLoggedOut} />}
+      </div>
       <StepIndicator currentStep={currentStep} />
 
       {loggedIn === null && <p>Checking Spotify connection…</p>}
