@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { openai } from "@/lib/openai/client";
+import { CHAT_MODEL, openai } from "@/lib/openai/client";
 import { isPersonaId } from "@/lib/openai/personas/registry";
 import { proposePlaylistTool, PROPOSE_PLAYLIST_TOOL_NAME } from "@/lib/openai/proposePlaylistTool";
 import { buildSystemPrompt } from "@/lib/openai/systemPrompt";
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   }
 
   const completion = await openai.chat.completions.create({
-    model: "gpt-5.6-terra",
+    model: CHAT_MODEL,
     messages: [{ role: "system", content: buildSystemPrompt(body.personaId) }, ...body.messages],
     tools: [proposePlaylistTool],
     tool_choice: "auto",

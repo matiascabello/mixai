@@ -1,5 +1,5 @@
 import type OpenAI from "openai";
-import { openai } from "./client";
+import { openai, QUICK_REPLY_MODEL } from "./client";
 
 const SUGGEST_QUICK_REPLIES_TOOL_NAME = "suggest_quick_replies";
 
@@ -39,7 +39,7 @@ const CLASSIFIER_SYSTEM_PROMPT =
 // function is reliable. Runs on a cheap/fast model since it's a narrow classification task.
 export async function getQuickReplies(assistantMessage: string): Promise<string[]> {
   const completion = await openai.chat.completions.create({
-    model: "gpt-5.6-luna",
+    model: QUICK_REPLY_MODEL,
     messages: [
       { role: "system", content: CLASSIFIER_SYSTEM_PROMPT },
       { role: "user", content: assistantMessage },

@@ -145,9 +145,13 @@ Required environment variables (`.env.local`):
 | Variable | Purpose |
 |---|---|
 | `OPENAI_API_KEY` | OpenAI API access |
+| `OPENAI_CHAT_MODEL` | Optional. Model used for the main DJ conversation. Defaults to `gpt-5.6-terra` |
+| `OPENAI_QUICK_REPLY_MODEL` | Optional. Model used for the cheap quick-reply classifier. Defaults to `gpt-5.6-luna` |
 | `SPOTIFY_CLIENT_ID` / `SPOTIFY_CLIENT_SECRET` | Spotify app credentials |
 | `SPOTIFY_REDIRECT_URI` | Must be an HTTPS URL, or `http://127.0.0.1:<port>/api/spotify/callback` for local dev |
 | `IRON_SESSION_PASSWORD` | Random string, 32+ characters, used to encrypt the session cookie |
+
+See `.env.local.example` for a copyable template.
 
 Other scripts: `npm run build` / `npm run start` (production), `npm run lint`,
 `npm run typecheck`, `npm run test` (Vitest).
@@ -173,8 +177,6 @@ Other scripts: `npm run build` / `npm run start` (production), `npm run lint`,
   and the OAuth/session flow are verified manually, not by automated tests.
 - **No fallback providers.** An OpenAI or Spotify outage has no graceful
   degradation path today.
-- **`.env.local.example` doesn't exist yet**, despite being referenced by
-  setup error messages in the code.
 
 ## Screenshots
 
