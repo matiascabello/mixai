@@ -2,7 +2,17 @@
 
 *Describe the vibe. It builds the set.*
 
-Live Demo: <https://mixai-omega.vercel.app/>
+## Demo
+
+Spotify caps apps in **Development Mode** at 5 allowlisted accounts — an
+unapproved app simply can't authenticate arbitrary users until Spotify
+grants Extended Quota Mode. Rather than gate this behind an invite list:
+
+- **Watch the walkthrough:** [https://youtu.be/WhnkrzJ8y84](https://youtu.be/WhnkrzJ8y84), covering the full flow end to end.
+- **Run it yourself:** clone the repo and plug in your own Spotify +
+  OpenAI keys (see [Getting started](#getting-started)) — that path isn't
+  subject to my app's quota at all, since it's your own Spotify app
+  credentials doing the authenticating.
 
 MixAI is a web app that turns a short conversation into a real, playable Spotify
 playlist. Instead of hand-picking songs for a party or event, you describe the
@@ -177,6 +187,9 @@ Other scripts: `npm run build` / `npm run start` (production), `npm run lint`,
   and the OAuth/session flow are verified manually, not by automated tests.
 - **No fallback providers.** An OpenAI or Spotify outage has no graceful
   degradation path today.
+- **Spotify Development Mode quota.** The hosted instance is capped at 5
+  allowlisted accounts by Spotify, not by design — see [Demo](#demo) above
+  for the recorded walkthrough and self-hosting instructions.
 
 ## Screenshots
 

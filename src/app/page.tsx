@@ -30,7 +30,7 @@ export default async function LandingPage({ searchParams }: LandingPageProps) {
           It builds the set.
         </h1>
         <p className="landing-subtitle">
-          MixAI is an AI DJ. Tell it the occasion, the crowd, a few reference tracks — it asks a
+          MixAI is an AI DJ. Tell it the occasion, the crowd, and a few reference tracks — it asks a
           couple of questions, builds a tracklist, and drops a real playlist straight into your
           Spotify.
         </p>
@@ -46,7 +46,7 @@ export default async function LandingPage({ searchParams }: LandingPageProps) {
       <footer className="landing-footer">
         For testing and efficiency, this demo runs on <strong>gpt-5.6-terra</strong>. Clone the
         repo, drop in your own OpenAI key, and try other models or rewrite the DJ personas
-        yourself — <a href="https://github.com/matiascabello/mixai">repo and documentation</a>.
+        yourself. <a href="https://github.com/matiascabello/mixai">Repo and documentation</a>.
       </footer>
     </main>
   );
